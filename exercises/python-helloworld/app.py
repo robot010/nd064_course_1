@@ -1,5 +1,7 @@
 from flask import Flask
 from flask import json
+import logging
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -13,6 +15,8 @@ def status():
         status = 200,
         mimetype = 'application/json'
     )
+
+    app.logger.info("Status logging succeeds.")
     return response
 
 @app.route('/metrics')
@@ -22,7 +26,11 @@ def metrics():
         status = 200,
         mimetype = 'application/json'
     )
+
+    app.logger.info("Metrics logging succeeds.")
     return response
 
 if __name__ == "__main__":
+
+    logging.basicConfig(filename='app.log', level=logging.DEBUG)
     app.run(host='0.0.0.0')
